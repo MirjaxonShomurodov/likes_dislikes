@@ -3,7 +3,7 @@ from telegram import Update
 from keyboards import keyboard
 from flask import Flask,request
 import telegram
-from db import inc_dislike,inc_like,get_user,clear
+from db import inc_dislike,inc_like,get_user,clear,add_user
 app = Flask(__name__)
 
 bot = telegram.Bot(TOKEN)
@@ -12,13 +12,12 @@ bot = telegram.Bot(TOKEN)
 def index():
     data = request.get_json()
     chat_ids = data['message']['chat']['id']
-
+    print(data)
     if data['message']['text']=='/start':
-        bot.send_message(chat_id=chat_ids,text = data['message']['text'])
-        user = Update.effective_user
+        add_user(chat_id=str(chat_ids))
         bot.send_message(
             chat_id=chat_ids,
-            text=f'Hello, {user.full_name}! Press one of the buttons.',
+            text=f'Hello, {data["message"]["chat"]["first_name"]}! Press one of the buttons.',
             reply_markup=keyboard
         )
     elif data['message']['text']=='👍':
