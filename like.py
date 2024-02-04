@@ -9,7 +9,7 @@ app = Flask(__name__)
 bot = telegram.Bot(TOKEN)
 
 @app.route('/',methods = ['POST'])
-def index():
+def index():  
     data = request.get_json()
     chat_ids = data['message']['from']['id']
     print(data)
@@ -44,7 +44,7 @@ def index():
             text=f'likes:{user_data["likes"]}\ndislikes: {user_data["dislikes"]}',
             reply_markup=keyboard
         )
-    elif data['message'].get('photo')==data['message'].get('photo'):
+    elif data['message'].get('photo')!=None:
         inc_inline_like(chat_id=str(chat_ids))
         user_data =get_user(chat_id=str(chat_ids))
         bot.send_photo(
@@ -53,7 +53,7 @@ def index():
             capiton = f'inline_likes:{user_data["inline_like"]}\ninline_dislikes:{user_data["inline_dislikes"]}',
             reply_markup=inline_keyboard
         )
-    elif data['message'].get('photo')==data['message'].get('photo'):
+    elif data['message'].get('photo')!=None:
         inc_inline_dislike(chat_id=str(chat_ids))
         user_data = get_user(chat_id=str(chat_ids))
         bot.send_photo(
