@@ -55,7 +55,7 @@ def index():
         user_data = get_user(chat_id=str(chat_ids))
         bot.send_message(
             chat_id=chat_ids,
-            text=f'likes:{user_data["likes"]}\ndislikes: {user_data["dislikes"]}',
+            text=f'😅likes:{user_data["likes"]}\n🥲dislikes: {user_data["dislikes"]}',
             reply_markup=keyboard
         )
     elif data['message']['text']=='👎':
@@ -66,7 +66,7 @@ def index():
         user_data = get_user(chat_id=str(chat_ids))
         bot.send_message(
             chat_id = chat_ids,
-            text=f'likes:{user_data["likes"]}\ndislikes: {user_data["dislikes"]}',
+            text=f'😅likes:{user_data["likes"]}\n🥲dislikes: {user_data["dislikes"]}',
             reply_markup=keyboard
         ) 
     elif data['message']['text']=='🆑':
@@ -74,39 +74,42 @@ def index():
         user_data = get_user(chat_id=str(chat_ids))
         bot.send_message(
             chat_id = chat_ids,
-            text=f'likes:{user_data["likes"]}\ndislikes: {user_data["dislikes"]}',
+            text=f'😅likes:{user_data["likes"]}\n🥲dislikes: {user_data["dislikes"]}',
             reply_markup=keyboard
         )
-    elif data['message'].get('photo')!=None:
+    elif data['message']['photo'][0]['file_id']!=None:
         if not is_user(str(chat_ids)):
             start(user = data['message']['chat'])
 
         inc_inline_like(chat_id=str(chat_ids))
         user_data =get_user(chat_id=str(chat_ids))
-        bot.send_message(
+        bot.edit_message_text(
             chat_id = chat_ids,
+            message = Update.callback_query.message.message_id,
             text=f'likes:{user_data["inline_likes"]}\ndislikes: {user_data["dislikes"]}',
-            reply_markup=keyboard
+            reply_markup=inline_keyboard
         )
-    elif data['message'].get('photo')!=None:        
+    elif data['message']['photo'][0]['file_id']!=None:        
         if not is_user(str(chat_ids)):
             start(user = data['message']['chat'])
 
         inc_inline_dislike(chat_id=str(chat_ids))
         user_data = get_user(chat_id=str(chat_ids))
-        bot.send_message(
+        bot.edit_message_text(
             chat_id=chat_ids,
+            message = Update.callback_query.message.message_id,
             text = f'inline_likes:{user_data["inline_likes"]}\ninline_dislikes: {user_data["inline_dislikes"]}',
             reply_markup=inline_keyboard
         )
-    elif data['message'].get('photo')!=None:        
+    elif data['message']['photo'][0]['file_id']!=None:        
         if not is_user(str(chat_ids)):
             start(user = data['message']['chat'])
-            
+
         inline_clear(chat_id=str(chat_ids))
         user_data = get_user(chat_id=chat_ids)
         bot.edit_message_text(
             chat_id = chat_ids,
+            message = Update.callback_query.message.message_id,
             text = f'inline_likes:{user_data["inline_likes"]}\ninline_dislikes: {user_data["inline_dislikes"]}',
             reply_markup=inline_keyboard
         )
