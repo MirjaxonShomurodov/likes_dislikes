@@ -44,31 +44,28 @@ def index():
             text=f'likes:{user_data["likes"]}\ndislikes: {user_data["dislikes"]}',
             reply_markup=keyboard
         )
-    elif data['message'].get('photo')!=None:
+    elif data['message']['text']!=None:
         inc_inline_like(chat_id=str(chat_ids))
         user_data =get_user(chat_id=str(chat_ids))
-        bot.send_photo(
+        bot.send_message(
             chat_id = chat_ids,
-            file_id = data['message']['photo'][0]['file_id'],
-            capiton = f'inline_likes:{user_data["inline_like"]}\ninline_dislikes:{user_data["inline_dislikes"]}',
-            reply_markup=inline_keyboard
+            text=f'likes:{user_data["inline_likes"]}\ndislikes: {user_data["dislikes"]}',
+            reply_markup=keyboard
         )
     elif data['message'].get('photo')!=None:
         inc_inline_dislike(chat_id=str(chat_ids))
         user_data = get_user(chat_id=str(chat_ids))
-        bot.send_photo(
+        bot.send_message(
             chat_id=chat_ids,
-            file_id=data['message']['photo'][0]['file_id'],
-            capiton=f'inline_likes:{user_data["inline_like"]}\ninline_dislikes:{user_data["inline_dislikes"]}',
+            text = f'inline_likes:{user_data["inline_likes"]}\ninline_dislikes: {user_data["inline_dislikes"]}',
             reply_markup=inline_keyboard
         )
-    elif data['message'].get('photo')==data['message'].get('photo'):
+    elif data['message'].get('photo')!=None:
         inline_clear(chat_id=str(chat_ids))
         user_data = get_user(chat_id=chat_ids)
         bot.send_message(
             chat_id = chat_ids,
-            file_id = data['message']['photo'][0]['file_id'],
-            capiton=f'inline_likes:{user_data["inline_like"]}\ninline_dislikes:{user_data["inline_dislikes"]}',
+            text = f'inline_likes:{user_data["inline_likes"]}\ninline_dislikes: {user_data["inline_dislikes"]}',
             reply_markup=inline_keyboard
         )
     else:
