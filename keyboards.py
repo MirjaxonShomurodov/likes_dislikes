@@ -1,4 +1,4 @@
-from telegram import ReplyKeyboardMarkup,KeyboardButton
+from telegram import ReplyKeyboardMarkup,KeyboardButton,InlineKeyboardButton,InlineKeyboardMarkup
 
 keyboard = ReplyKeyboardMarkup(
     keyboard=[
@@ -10,4 +10,15 @@ keyboard = ReplyKeyboardMarkup(
         ]
     ],
     resize_keyboard=True
+)
+
+inline_keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(text="👍"),InlineKeyboardButton(text="👎")
+        ],
+        [
+            InlineKeyboardButton(text="🆑")
+        ]
+    ]
 )
